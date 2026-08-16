@@ -1,0 +1,104 @@
+<%layout("/layouts/boilerplate")%>
+<body>
+    <form class="needs-validation" enctype="multipart/form-data"  action="/listings/edit/<%= data.id %>?_method=PUT" method="post" novalidate>
+        <div class="row mt-5 shadow p-3 mb-5 bg-body-tertiary rounded">
+            <p class="fs-2 text-secondary">Edit Listing</p>
+            <div class="col-8 offset-2">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input name="listing[title]" type="text" class="form-control" id="title" value="<%= data.title %>" placeholder="Write the title" required>
+                    <div class="invalid-feedback">
+                        Please provide a title.
+                    </div>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea name="listing[description]" class="form-control" id="description" placeholder="Enter the description" required><%= data.description %></textarea>
+                    <div class="invalid-feedback">
+                        Please provide a description.
+                    </div>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <h1>orignal image</h1>
+                    <img style="height: 300px;" src="<%=image %>" alt="">
+                </div>
+                <div class="mb-3">
+                    <label for="imageUrl" class="form-label">Upload New Image URL</label>
+                    <input name="listing[image][url]" type="file" class="form-control" id="listing[image][url]"  placeholder="Paste the URL">
+                    <div class="invalid-feedback">
+                        Please provide an image URL.
+                    </div>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col-3">
+                        <label for="price" class="form-label">Price (&#8377;)</label>
+                        <input name="listing[price]" type="number" class="form-control" id="price" value="<%= data.price %>" placeholder="Enter the price" required>
+                        <div class="invalid-feedback">
+                            Please provide a price.
+                        </div>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                    <div class="mb-3 col-9">
+                        <label for="location" class="form-label">Location</label>
+                        <input name="listing[location]" type="text" class="form-control" id="location" value="<%= data.location %>" placeholder="Enter the location of the hotel" required>
+                        <div class="invalid-feedback">
+                            Please provide a location.
+                        </div>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="country" class="form-label">Country</label>
+                    <input name="listing[country]" type="text" class="form-control" id="country" value="<%= data.country %>" placeholder="Enter the country" required>
+                    <div class="invalid-feedback">
+                        Please provide a country.
+                    </div>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="add-listing-button">
+                    <button type="submit" class="btn btn-danger shadow mt-2 rounded">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    
+
+    <!--[if lt IE 7]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    
+    <script src="" async defer></script>
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict'
+            var forms = document.querySelectorAll('.needs-validation')
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
+</body>

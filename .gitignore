@@ -1,0 +1,11 @@
+/.history
+.env
+node_modules/
+**/.DS_Store
+
+# Monorepo workspace ignores
+Backend/.env
+Backend/node_modules/
+Frontend/node_modules/
+Frontend/client/node_modules/
+Frontend/client/dist/

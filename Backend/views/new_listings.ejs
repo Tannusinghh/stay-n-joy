@@ -1,0 +1,83 @@
+<%layout("/layouts/boilerplate")%>
+<body>
+    <form class="offset-1 needs-validation" enctype="multipart/form-data" action="/listings/new" method="post" novalidate >
+        <div class="row shadow p-3 mt-5 mb-5 me-4 bg-body-tertiary rounded">
+            <p class="fs-2 text-secondary text-center">Add New Listing</p>
+            <div class="col-8 offset-2">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input name="listing[title]" type="text" class="form-control" id="title" placeholder="Write the title" required>
+                    <div class="invalid-feedback">
+                        Please provide a title.
+                    </div>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea name="listing[description]" class="form-control" id="description" placeholder="Enter the description" required></textarea>
+                    <div class="invalid-feedback">
+                        Please provide a Description.
+                    </div>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="imageUrl" class="form-label">Image Upload</label>
+                    <input name="listing[image][url]" type="file" class="form-control" id="imageUrl" >
+                    <div class="invalid-feedback">
+                        Please provide an image file.
+                    </div>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>                
+               <div class="row">
+                    <div class="mb-3 col-6">
+                        <label for="price" class="form-label">Price (&#8377;)</label>
+                        <input name="listing[price]" type="number" class="form-control" id="price" placeholder="Enter the price" required>
+                        <div class="invalid-feedback">
+                            Please provide a Price.
+                        </div>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label for="location" class="form-label">Location</label>
+                        <input name="listing[location]" type="text" class="form-control" id="location" placeholder="Enter the location of the hotel" required>
+                        <div class="invalid-feedback">
+                            Please provide a zLocation.
+                        </div>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="country" class="form-label">Country</label>
+                        <input name="listing[country]" type="text" class="form-control" id="country" placeholder="Enter the country" required>
+                        <div class="invalid-feedback">
+                            Please provide a Country.
+                        </div>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+               </div>
+               <div class="container mt-3">
+                    <div class="new-listing-button-sumbit add-listing-button">
+                        <button type="submit" class="btn btn-danger shadow mt-2 rounded w-100 w-md-auto text-center">Submit</button>
+                    </div>
+                 </div>       
+            </div>
+        </div>
+    </form>
+
+    <!--[if lt IE 7]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    
+    <script src="" async defer></script>
+</body>
