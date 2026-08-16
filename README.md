@@ -1,154 +1,247 @@
-# StayNJoy (Airbnb-style MERN)
+# Stay N Joy — AI-Powered Stay Booking Platform
 
-This repository is organized into two top-level workspaces:
+Stay N Joy is a full-stack stay booking platform inspired by modern accommodation platforms. It allows users to discover properties, view detailed listings, manage listings, write reviews, explore locations on maps, and use AI-powered tools to plan trips and search for stays naturally.
 
-- `Backend/` - Node.js + Express + MongoDB API server, authentication, listing/review services, AI services, and data scripts.
-- `Frontend/` - React + Vite client application (`Frontend/client`) with modern UI, routing, auth context, map integrations, and AI UI flows.
+The project focuses on building a simple, modern and intelligent travel experience using a MERN-based architecture.
 
-## Project Overview
+## 🚀 Key Features
 
-**StayNJoy** is an Airbnb-inspired full-stack web application where users can discover places to stay, view detailed property information, leave reviews, and plan trips with AI assistance.
+### 🔐 Authentication & Authorization
 
-The project combines a modern MERN architecture with travel-focused AI features. It is designed as both:
-- a practical booking/listing platform prototype, and
-- a capstone-style showcase of full-stack engineering (auth, CRUD, maps, AI, and responsive UI).
+- User registration and login
+- JWT-based authentication
+- Protected API routes
+- User-specific actions and ownership validation
 
-## What This Project Includes
+### 🏠 Property Listings
 
-- **User accounts and authentication**
-  - Signup/login, JWT-based API auth, protected routes, and authenticated actions.
-- **Listing management**
-  - Create, view, edit, and delete listings with ownership checks.
-  - Rich listing details such as price, location, amenities, host info, and image galleries.
-- **Reviews system**
-  - Users can post and delete their own reviews with author-level permissions.
-- **Search and discovery**
-  - Category filters, price/sort controls, and natural-language smart search.
-- **Maps and location features**
-  - Mapbox-powered listing maps and route visualization for trip plans.
-- **AI-powered travel tools**
-  - AI assistant chat for listing-related questions using data-grounded responses.
-  - AI trip planner with day-by-day itinerary generation and mapped stops.
-- **Modern frontend experience**
-  - React + Vite app with responsive layout, improved UI consistency, and reusable component-driven design.
+- Browse available stays
+- View detailed property information
+- Create, update and delete listings
+- Property images, pricing, location, amenities and host information
+- Ownership-based access control
 
-## What Happened In This Project
+### ⭐ Reviews
 
-This project evolved in multiple phases instead of being built in one shot:
+- Add reviews to listings
+- Delete your own reviews
+- Author-level permissions
+- Integrated review and listing data
 
-1. **Original stack (EJS + Express + MongoDB)**  
-   The app started as a server-rendered Airbnb-style project with EJS views, listing CRUD, reviews, image uploads, and MongoDB models.
+### 🔎 Smart Search & Discovery
 
-2. **MERN migration**  
-   The UI was ported to React + Vite (`Frontend/client`) while the backend was kept and modernized into JSON-first API routes under `Backend/routes/api`.
+- Category-based filtering
+- Price and sorting controls
+- Natural-language search powered by AI
+- Converts user queries into structured listing filters
 
-3. **UX/UI modernization**  
-   The frontend was redesigned with Tailwind + shadcn-style components, larger layout widths, better hierarchy, responsive navigation, improved forms, and smoother interactions.
+### 🗺️ Maps & Location
 
-4. **AI feature rollout**  
-   The project added three major AI capabilities:
-   - Natural-language listing smart search
-   - AI trip planner with day-wise itinerary + Mapbox route/stops
-   - Data-grounded assistant chat for listing questions
+- Mapbox integration for property locations
+- Location visualization for listings
+- Route and stop visualization for generated trip plans
+- Location validation to improve map accuracy
 
-5. **Reliability and correctness hardening**  
-   Several production-grade fixes were applied:
-   - Better agent context handling across chat turns
-   - Tool-call fallback behavior for provider errors
-   - Stricter geocoding/validation to reduce wrong-city map pins
-   - Route protection and ownership checks on sensitive operations
+### 🤖 AI-Powered Travel Tools
 
-6. **Security and architecture cleanup**  
-   JWT-based auth was enforced for protected APIs, CORS/auth flow was aligned, ownership middleware was tightened, and secrets were moved to environment-based handling.
+- **AI Smart Search:** Search for stays using natural language.
+- **AI Trip Planner:** Generate day-by-day travel itineraries with mapped locations.
+- **AI Assistant:** Ask questions about listings using data-grounded responses.
 
-7. **Repository reorganization**  
-   The codebase was restructured into top-level `Backend/` and `Frontend/` folders with this root architecture overview for easier onboarding and maintenance.
+### 📱 Modern Frontend
 
-## Architecture Overview
+- React + Vite
+- Responsive user interface
+- Reusable React components
+- Protected routes
+- Centralized authentication state
+- Tailwind CSS and component-based UI
 
-### 1) High-level flow
-
-1. User interacts with React client in `Frontend/client`.
-2. Client calls backend APIs under `/api/*`.
-3. Express routes in `Backend/routes/api` process requests.
-4. MongoDB models in `Backend/models` provide data persistence.
-5. AI routes/services in `Backend/routes/api/ai.js` and `Backend/services/*` enrich search/planning/chat features.
-
-### 2) Backend architecture (`Backend/`)
-
-- **Entry point:** `Backend/app.js`
-  - Express bootstrap, MongoDB connection, CORS, JSON parsing.
-  - Mounts auth/listings/reviews/AI/agent routes.
-  - Serves SPA build (`client/dist`) when present.
-- **Auth & authorization:**
-  - JWT auth middleware in `Backend/middleware/apiAuth.js`.
-  - Ownership checks for listing/review write operations.
-- **Core API routes:**
-  - `routes/api/auth.js` - register/login/me.
-  - `routes/api/listings.js` - listing CRUD + filtering.
-  - `routes/api/reviews.js` - nested review operations.
-  - `routes/api/ai.js` - itinerary planning + smart search.
-  - `routes/api/agentChat.js` - session-aware assistant chat endpoint.
-- **Models:**
-  - `staynenjoy_schema.js`, `reviewSchema.js`, `userSchema.js`.
-- **Services:**
-  - `services/aiService.js` (Groq itinerary/search logic).
-  - `services/mcpAgent.js` (tool-driven data-grounded assistant).
-- **Scripts:**
-  - `scripts/seedListings.js`, `backfillListings.js`, `viewListings.js` for data setup and maintenance.
-
-### 3) Frontend architecture (`Frontend/client`)
-
-- **Entry & shell:**
-  - `src/main.jsx` -> Router + auth provider.
-  - `src/App.jsx` -> routes + protected routes.
-  - `src/components/Layout.jsx` -> navbar/mobile nav/global chat mount.
-- **Pages:**
-  - Listings browse/detail/form, login/signup, trip planner.
-- **State/auth:**
-  - `src/context/AuthContext.jsx` stores user/token and auth lifecycle.
-- **API layer:**
-  - `src/api.js` wraps fetch, injects JWT Authorization headers, handles 401 logout.
-- **UI system:**
-  - Tailwind CSS + shadcn UI primitives + custom theme tokens.
-  - Mapbox components for listing and itinerary maps.
-
-### 4) AI capabilities currently included
-
-- **Smart search** (`/api/ai/smart-search`): natural language query -> structured filters -> listing results.
-- **Trip planner** (`/api/ai/itinerary`): tool-assisted place retrieval + validated map stops.
-- **Assistant chat** (`/api/agent/chat`): data-grounded listing assistant with session memory.
-
-### 5) Security notes
-
-- API auth uses JWT (`Authorization: Bearer <token>`).
-- AI endpoints are protected behind auth middleware.
-- Keep secrets in `.env` only; never commit real API keys.
-
-## Local Development
-
-### Backend
-
-```bash
-cd Backend
-npm install
-npm run dev
-```
+## 🛠️ Tech Stack
 
 ### Frontend
 
-```bash
-cd Frontend/client
-npm install
-npm run dev
-```
+- React
+- Vite
+- JavaScript
+- Tailwind CSS
+- Mapbox
 
-> Frontend dev server proxies `/api` to backend. Configure backend `FRONTEND_URL` and environment variables as needed.
+### Backend
 
-## Repository layout
+- Node.js
+- Express.js
+- REST APIs
+- JWT Authentication
 
-```text
-AirBnb-Project/
-  Backend/
-  Frontend/
-```
+### Database
+
+- MongoDB
+- Mongoose
+
+### AI & Integrations
+
+- Groq
+- AI-powered search and itinerary generation
+- Mapbox APIs
+
+### Development Tools
+
+- Git
+- GitHub
+- VS Code
+
+## 🏗️ Architecture
+
+    ┌─────────────────────┐
+    │     React Client    │
+    │  Frontend / Vite    │
+    └──────────┬──────────┘
+               │
+               │ REST API
+               ▼
+    ┌─────────────────────┐
+    │   Express Backend   │
+    │   Node.js / APIs    │
+    └──────────┬──────────┘
+               │
+       ┌───────┼───────────────┐
+       ▼       ▼               ▼
+    ┌───────┐ ┌────────────┐ ┌───────────┐
+    │MongoDB│ │AI Services │ │  Mapbox   │
+    │Database││Search/Chat │ │   Maps    │
+    └───────┘ └────────────┘ └───────────┘
+
+## 🤖 AI Features
+
+### 1. Natural-Language Smart Search
+
+Users can search for properties using conversational queries instead of manually selecting multiple filters.
+
+Example:
+
+    Find an affordable stay near Bangalore with good reviews
+
+The AI converts the query into structured search parameters and retrieves relevant listings.
+
+### 2. AI Trip Planner
+
+Users can generate personalized travel itineraries with:
+
+- Day-by-day plans
+- Suggested places
+- Mapped stops
+- Route visualization
+
+### 3. AI Listing Assistant
+
+The application provides an AI assistant that can answer questions about available listings using application data.
+
+## 🔒 Security
+
+- JWT-based API authentication
+- Protected routes for authenticated operations
+- Ownership validation for listing and review modifications
+- Environment variables for sensitive configuration
+- API keys and secrets are excluded from the repository
+
+> Never place real API keys, database credentials or other secrets directly in the source code.
+
+## 💻 Local Setup
+
+### Prerequisites
+
+Make sure you have installed:
+
+- Node.js
+- npm
+- MongoDB
+- Git
+
+### 1. Clone the Repository
+
+    git clone https://github.com/Tannusinghh/stay-n-joy.git
+    cd stay-n-joy
+
+### 2. Start the Backend
+
+    cd Backend
+    npm install
+    npm run dev
+
+### 3. Start the Frontend
+
+Open another terminal:
+
+    cd Frontend/client
+    npm install
+    npm run dev
+
+### 4. Environment Variables
+
+Create the required `.env` files for the backend and frontend and configure the required database, authentication, AI and Mapbox credentials.
+
+Do not commit `.env` files to GitHub.
+
+## 📂 Project Structure
+
+    stay-n-joy/
+    │
+    ├── Backend/
+    │   ├── middleware/
+    │   ├── models/
+    │   ├── routes/
+    │   │   └── api/
+    │   ├── services/
+    │   ├── scripts/
+    │   └── app.js
+    │
+    ├── Frontend/
+    │   └── client/
+    │       └── src/
+    │           ├── components/
+    │           ├── context/
+    │           ├── pages/
+    │           ├── api.js
+    │           ├── App.jsx
+    │           └── main.jsx
+    │
+    ├── .gitignore
+    └── README.md
+
+## 🎯 What I Learned
+
+Through Stay N Joy, I gained hands-on experience with:
+
+- Full-stack web application development
+- REST API design and integration
+- React component-based development
+- Authentication and authorization
+- MongoDB data modeling
+- CRUD operations
+- Third-party API integration
+- Map-based functionality
+- AI feature integration
+- Frontend and backend integration
+- Git and GitHub workflow
+- Building features around real user requirements
+
+## 🔮 Future Improvements
+
+Potential future improvements include:
+
+- Online booking and payment integration
+- Advanced personalized recommendations
+- Host dashboard and analytics
+- Multilingual support
+- Improved recommendation algorithms
+- Deployment and production monitoring
+- Automated testing
+
+## 👨‍💻 Project
+
+**Stay N Joy**
+
+Full-Stack AI-Powered Stay Booking Platform
+
+Built using **React, Node.js, Express, MongoDB, JavaScript, Tailwind CSS, Mapbox and AI services.**
